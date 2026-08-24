@@ -1,0 +1,22 @@
+import { z } from "zod"
+
+const baseYearGoalSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(1, "제목을 입력해 주세요")
+    .max(200, "제목은 200자 이하로 입력해 주세요"),
+  startDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "날짜는 YYYY-MM-DD 형식이어야 합니다"),
+  endDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "날짜는 YYYY-MM-DD 형식이어야 합니다"),
+})
+
+export const createYearGoalSchema = baseYearGoalSchema
+
+export const updateYearGoalSchema = baseYearGoalSchema.partial()
+
+export type CreateYearGoalInput = z.infer<typeof createYearGoalSchema>
+export type UpdateYearGoalInput = z.infer<typeof updateYearGoalSchema>
