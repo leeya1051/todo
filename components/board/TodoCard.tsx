@@ -16,10 +16,10 @@ const PRIORITY_LABELS: Record<TodoPriority, string> = {
 
 const PRIORITY_VARIANTS: Record<
   TodoPriority,
-  "destructive" | "default" | "secondary"
+  "default" | "outline" | "secondary"
 > = {
-  high: "destructive",
-  medium: "default",
+  high: "default",
+  medium: "outline",
   low: "secondary",
 }
 
@@ -49,7 +49,7 @@ export function TodoCard({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "cursor-grab touch-none rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "cursor-grab touch-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring",
         isDragging && "z-10 cursor-grabbing opacity-60"
       )}
       onClick={() => onEdit(todo)}
@@ -59,13 +59,13 @@ export function TodoCard({
       <Card
         size="sm"
         className={cn(
-          "transition-shadow hover:shadow-md",
-          isDragging && "shadow-lg"
+          "hover:shadow-airbnb",
+          isDragging && "shadow-airbnb"
         )}
       >
         <CardContent className="grid gap-2">
           <div className="flex items-start justify-between gap-2">
-            <p className="text-sm font-medium leading-snug">{todo.title}</p>
+            <p className="text-base font-semibold leading-snug">{todo.title}</p>
             <div className="flex shrink-0 gap-1">
               <Button
                 type="button"
@@ -97,13 +97,13 @@ export function TodoCard({
           </div>
 
           {todo.description ? (
-            <p className="line-clamp-2 text-xs text-muted-foreground">
+            <p className="line-clamp-2 text-sm text-muted-foreground">
               {todo.description}
             </p>
           ) : null}
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-muted-foreground">{todo.date}</span>
+            <span className="text-sm text-muted-foreground">{todo.date}</span>
             <Badge
               variant={PRIORITY_VARIANTS[todo.priority]}
               className="max-w-full truncate"

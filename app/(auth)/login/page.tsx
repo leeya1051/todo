@@ -57,7 +57,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center p-6">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>로그인</CardTitle>
+          <CardTitle className="text-xl">로그인</CardTitle>
           <CardDescription>등록된 계정으로 로그인하세요.</CardDescription>
         </CardHeader>
         <CardContent>

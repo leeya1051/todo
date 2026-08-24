@@ -84,7 +84,7 @@ export default function RegisterPage() {
     <main className="flex min-h-screen items-center justify-center p-6">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>회원가입</CardTitle>
+          <CardTitle className="text-xl">회원가입</CardTitle>
           <CardDescription>
             이메일과 비밀번호로 계정을 만드세요.
           </CardDescription>

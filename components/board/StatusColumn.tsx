@@ -28,14 +28,14 @@ export function StatusColumn({
   return (
     <section className="flex flex-col gap-2" aria-label={label}>
       <header className="flex items-center justify-between px-1">
-        <h2 className="text-sm font-semibold">{label}</h2>
-        <span className="text-xs text-muted-foreground">{todos.length}</span>
+        <h2 className="text-base font-semibold">{label}</h2>
+        <span className="text-sm text-muted-foreground">{todos.length}</span>
       </header>
 
       <div
         ref={setNodeRef}
         className={cn(
-          "flex min-h-[200px] flex-col gap-2 rounded-xl border border-dashed border-border bg-muted/30 p-2 transition-colors",
+          "flex min-h-[200px] flex-col gap-2 rounded-md border border-dashed border-border bg-muted/30 p-2 transition-colors",
           isOver && "border-primary bg-muted"
         )}
       >

@@ -24,10 +24,10 @@ const STATUS_LABELS: Record<TodoStatus, string> = Object.fromEntries(
 
 const PRIORITY_VARIANTS: Record<
   "high" | "medium" | "low",
-  "destructive" | "default" | "secondary"
+  "default" | "outline" | "secondary"
 > = {
-  high: "destructive",
-  medium: "default",
+  high: "default",
+  medium: "outline",
   low: "secondary",
 }
 
@@ -130,7 +130,7 @@ export default function DailyPage() {
   return (
     <main className="mx-auto max-w-3xl p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-xl font-semibold">{selectedDate} 할 일</h1>
+        <h1 className="text-xl font-semibold tracking-tight">{selectedDate} 할 일</h1>
         <div className="flex items-center gap-2">
           <Button
             type="button"
@@ -168,12 +168,12 @@ export default function DailyPage() {
         ) : null}
 
         {todos.map((todo) => (
-          <Card key={todo._id} size="sm">
+          <Card key={todo._id} size="sm" className="hover:shadow-airbnb">
             <CardContent className="grid gap-2">
-              <p className="text-sm font-medium leading-snug">{todo.title}</p>
+              <p className="text-base font-semibold leading-snug">{todo.title}</p>
 
               {todo.description ? (
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {todo.description}
                 </p>
               ) : null}

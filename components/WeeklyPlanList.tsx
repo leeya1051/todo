@@ -71,7 +71,7 @@ export default function WeeklyPlanList({
   return (
     <div className="grid gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">주간 계획</h1>
+        <h1 className="text-xl font-semibold tracking-tight">주간 계획</h1>
         <Button type="button" onClick={handleCreate}>
           <PlusIcon />새 주간 계획
         </Button>
@@ -101,7 +101,7 @@ export default function WeeklyPlanList({
       ) : (
         <div className="grid gap-3">
           {initialPlans.map((plan) => (
-            <Card key={plan._id}>
+            <Card key={plan._id} className="hover:shadow-airbnb">
               <CardHeader>
                 <div className="flex items-start justify-between gap-2">
                   <CardTitle>{plan.title}</CardTitle>

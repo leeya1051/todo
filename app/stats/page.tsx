@@ -63,7 +63,7 @@ export default async function StatsPage() {
   return (
     <main className="mx-auto max-w-3xl p-6">
       <div className="grid gap-4">
-        <h1 className="text-xl font-semibold">통계</h1>
+        <h1 className="text-xl font-semibold tracking-tight">통계</h1>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <Card>

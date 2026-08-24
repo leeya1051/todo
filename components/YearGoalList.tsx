@@ -66,7 +66,7 @@ export default function YearGoalList({ initialGoals }: YearGoalListProps) {
   return (
     <div className="grid gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">1년 목표</h1>
+        <h1 className="text-xl font-semibold tracking-tight">1년 목표</h1>
         <Button type="button" onClick={handleCreate}>
           <PlusIcon />새 1년 목표
         </Button>
@@ -96,7 +96,7 @@ export default function YearGoalList({ initialGoals }: YearGoalListProps) {
       ) : (
         <div className="grid gap-3">
           {initialGoals.map((goal) => (
-            <Card key={goal._id}>
+            <Card key={goal._id} className="hover:shadow-airbnb">
               <CardHeader>
                 <div className="flex items-start justify-between gap-2">
                   <CardTitle>{goal.title}</CardTitle>

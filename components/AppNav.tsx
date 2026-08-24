@@ -32,7 +32,7 @@ export function AppNav() {
               <Link
                 href={item.href}
                 className={cn(
-                  "block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                  "block rounded-sm px-3 py-2 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
                   isActive && "bg-muted font-semibold text-foreground"
                 )}
               >

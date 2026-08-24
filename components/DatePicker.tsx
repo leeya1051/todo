@@ -86,7 +86,7 @@ export function DatePicker({ value, onChange, markedDates }: DatePickerProps) {
           {value}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-64">
+      <PopoverContent className="w-80">
         <div className="flex items-center justify-between pb-2">
           <Button
             type="button"
@@ -137,9 +137,9 @@ export function DatePicker({ value, onChange, markedDates }: DatePickerProps) {
                   setOpen(false)
                 }}
                 className={cn(
-                  "relative mx-auto flex size-8 items-center justify-center rounded-lg text-sm transition-colors hover:bg-muted",
+                  "relative mx-auto flex size-10 items-center justify-center rounded-full text-sm transition-colors hover:bg-muted",
                   isSelected &&
-                    "bg-primary text-primary-foreground hover:bg-primary/90",
+                    "bg-foreground text-background hover:bg-foreground/90",
                   !isSelected &&
                     isToday &&
                     "font-semibold text-foreground ring-1 ring-ring"
@@ -149,8 +149,8 @@ export function DatePicker({ value, onChange, markedDates }: DatePickerProps) {
                 {hasTodos ? (
                   <span
                     className={cn(
-                      "absolute bottom-1 size-1 rounded-full bg-primary",
-                      isSelected && "bg-primary-foreground"
+                      "absolute bottom-1.5 size-1 rounded-full bg-primary",
+                      isSelected && "bg-background"
                     )}
                   />
                 ) : null}
