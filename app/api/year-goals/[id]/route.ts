@@ -14,7 +14,7 @@ const notFound = () =>
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions)
 
@@ -23,14 +23,15 @@ export async function PATCH(
   }
 
   const userId = session.user.id
+  const { id } = await params
 
-  if (!mongoose.isValidObjectId(params.id)) {
+  if (!mongoose.isValidObjectId(id)) {
     return notFound()
   }
 
   await connectDB()
 
-  const goal = await YearGoal.findOne({ _id: params.id, userId })
+  const goal = await YearGoal.findOne({ _id: id, userId })
 
   if (!goal) {
     return notFound()
@@ -72,7 +73,7 @@ export async function PATCH(
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions)
 
@@ -81,14 +82,15 @@ export async function DELETE(
   }
 
   const userId = session.user.id
+  const { id } = await params
 
-  if (!mongoose.isValidObjectId(params.id)) {
+  if (!mongoose.isValidObjectId(id)) {
     return notFound()
   }
 
   await connectDB()
 
-  const goal = await YearGoal.findOne({ _id: params.id, userId })
+  const goal = await YearGoal.findOne({ _id: id, userId })
 
   if (!goal) {
     return notFound()
@@ -97,7 +99,7 @@ export async function DELETE(
   // WeeklyPlan → YearGoal 링크만 해제한다. WeeklyPlan과 그 하위 Todo는 보존한다
   // (PLAN.md §0-1 null-out 정책).
   await WeeklyPlan.updateMany(
-    { yearGoalId: params.id, userId },
+    { yearGoalId: id, userId },
     { $set: { yearGoalId: null } }
   )
 

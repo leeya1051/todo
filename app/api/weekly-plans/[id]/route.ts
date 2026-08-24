@@ -15,7 +15,7 @@ const notFound = () =>
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions)
 
@@ -24,14 +24,15 @@ export async function PATCH(
   }
 
   const userId = session.user.id
+  const { id } = await params
 
-  if (!mongoose.isValidObjectId(params.id)) {
+  if (!mongoose.isValidObjectId(id)) {
     return notFound()
   }
 
   await connectDB()
 
-  const plan = await WeeklyPlan.findOne({ _id: params.id, userId })
+  const plan = await WeeklyPlan.findOne({ _id: id, userId })
 
   if (!plan) {
     return notFound()
@@ -87,7 +88,7 @@ export async function PATCH(
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions)
 
@@ -96,14 +97,15 @@ export async function DELETE(
   }
 
   const userId = session.user.id
+  const { id } = await params
 
-  if (!mongoose.isValidObjectId(params.id)) {
+  if (!mongoose.isValidObjectId(id)) {
     return notFound()
   }
 
   await connectDB()
 
-  const plan = await WeeklyPlan.findOne({ _id: params.id, userId })
+  const plan = await WeeklyPlan.findOne({ _id: id, userId })
 
   if (!plan) {
     return notFound()
@@ -114,7 +116,7 @@ export async function DELETE(
   // 존재하는, 안전하게 복구 가능한 상태로 남는다 (삭제된 계획을 가리키는
   // 고아 Todo가 생기지 않는다) (PLAN.md §0-1).
   await Todo.updateMany(
-    { weeklyPlanId: params.id, userId },
+    { weeklyPlanId: id, userId },
     { $set: { weeklyPlanId: null } }
   )
 

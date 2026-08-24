@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { Suspense, useEffect, useRef } from "react"
 import { useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 
@@ -9,7 +9,11 @@ import { signIn } from "next-auth/react"
 // this page triggers the real sign-in flow on mount instead. The ref guard
 // stops React StrictMode's dev-mode double-invoke from firing signIn() twice
 // and overwriting the OAuth state cookie mid-flow.
-export default function GithubSignInPage() {
+//
+// useSearchParams() requires a Suspense boundary during Next's build-time
+// prerender shell pass (force-dynamic alone doesn't skip that pass), so the
+// hook lives in an inner component wrapped below.
+function GithubSignIn() {
   const searchParams = useSearchParams()
   const started = useRef(false)
 
@@ -22,4 +26,12 @@ export default function GithubSignInPage() {
   }, [searchParams])
 
   return null
+}
+
+export default function GithubSignInPage() {
+  return (
+    <Suspense fallback={null}>
+      <GithubSignIn />
+    </Suspense>
+  )
 }

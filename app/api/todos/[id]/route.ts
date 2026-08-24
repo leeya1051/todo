@@ -10,13 +10,15 @@ import { updateTodoSchema } from "@/lib/validation/todo"
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions)
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "인증이 필요합니다" }, { status: 401 })
   }
+
+  const { id } = await params
 
   let body: unknown
 
@@ -44,7 +46,7 @@ export async function PATCH(
     )
   }
 
-  if (!mongoose.isValidObjectId(params.id)) {
+  if (!mongoose.isValidObjectId(id)) {
     return NextResponse.json(
       { error: "할 일을 찾을 수 없습니다" },
       { status: 404 }
@@ -53,7 +55,7 @@ export async function PATCH(
 
   await connectDB()
 
-  const todo = await Todo.findOne({ _id: params.id, userId: session.user.id })
+  const todo = await Todo.findOne({ _id: id, userId: session.user.id })
 
   if (!todo) {
     return NextResponse.json(
@@ -112,7 +114,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions)
 
@@ -120,7 +122,9 @@ export async function DELETE(
     return NextResponse.json({ error: "인증이 필요합니다" }, { status: 401 })
   }
 
-  if (!mongoose.isValidObjectId(params.id)) {
+  const { id } = await params
+
+  if (!mongoose.isValidObjectId(id)) {
     return NextResponse.json(
       { error: "할 일을 찾을 수 없습니다" },
       { status: 404 }
@@ -130,7 +134,7 @@ export async function DELETE(
   await connectDB()
 
   const deleted = await Todo.findOneAndDelete({
-    _id: params.id,
+    _id: id,
     userId: session.user.id,
   })
 
